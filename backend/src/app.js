@@ -15,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 connectDB();
+app.use("/api/health", (req, res) => res.send("OK"));
 
 app.use("/api/employees", employeeRoutes);
 app.use("/api/attendance", attendanceRoutes);
