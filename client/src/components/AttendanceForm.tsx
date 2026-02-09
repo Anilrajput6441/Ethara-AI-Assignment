@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { attendanceAPI } from "../api/api";
 import type { Attendance } from "../types";
@@ -23,7 +22,14 @@ export default function AttendanceForm({ onSelect, defaultData }: AttendanceForm
 
   return (
     <form onSubmit={submit} className="space-y-3">
-    
+      <input
+        className="input"
+        placeholder="Employee ID"
+        value={data.employeeId}
+        onChange={e =>
+          setData({ ...data, employeeId: e.target.value })
+        }
+      />
 
       <input
         type="date"

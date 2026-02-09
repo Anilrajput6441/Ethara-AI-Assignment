@@ -17,10 +17,6 @@ export default function EmployeeList({ onEmployeeSelect, selectedEmployeeId }: E
     setLoading(true);
     try {
       const res = await employeeAPI.getAll();
-      console.log("API Response:", res);
-      console.log("Response data:", res.data);
-      console.log("Data type:", typeof res.data);
-      console.log("Is array:", Array.isArray(res.data));
       setData(Array.isArray(res.data) ? res.data : []);
     } catch (error) {
       console.error("Error loading employees:", error);
@@ -45,7 +41,6 @@ export default function EmployeeList({ onEmployeeSelect, selectedEmployeeId }: E
 
   if (loading) return <Loader />;
   
-  // Ensure data is always an array
   const employees = Array.isArray(data) ? data : [];
   
   if (!employees.length)

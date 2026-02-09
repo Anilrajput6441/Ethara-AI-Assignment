@@ -1,10 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { employeeAPI } from "../api/api";
 import type { Employee } from "../types";
 import ErrorState from "./ErrorState";
 
-export default function EmployeeForm({ onAdded }: any) {
+interface EmployeeFormProps {
+  onAdded: () => void;
+}
+
+export default function EmployeeForm({ onAdded }: EmployeeFormProps) {
   const [form, setForm] = useState<Employee>({
     employeeId: "",
     fullName: "",
@@ -14,7 +17,7 @@ export default function EmployeeForm({ onAdded }: any) {
 
   const [error, setError] = useState("");
 
-  const submit = async (e: any) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
@@ -27,8 +30,9 @@ export default function EmployeeForm({ onAdded }: any) {
         email: "",
         department: "",
       });
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Error");
+    } catch (err) {
+      const error = err as {response?: {data?: {message?: string}}} ;
+      setError(error.response?.data?.message || "Error");
     }
   };
 
